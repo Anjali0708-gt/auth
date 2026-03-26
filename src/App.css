@@ -1,0 +1,108 @@
+/* Background */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe); /* softer purple */
+}
+
+/* Container */
+.container {
+  text-align: center;
+  padding-top: 40px;
+}
+
+/* Top Heading */
+.container h1 {
+  color: #7c3aed;
+  font-size: 40px;
+  margin-bottom: 29px;
+}
+
+/* Navbar */
+nav {
+  margin-bottom: 40px;
+}
+
+/* Buttons */
+.nav-btn {
+  text-decoration: none;
+  background: #c4b5fd; /* lighter purple */
+  color: #4c1d95;
+  padding: 10px 22px;
+  margin: 0 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-btn:hover {
+  background: #a78bfa;
+  color: white;
+}
+
+/* Card */
+.card {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 16px;
+  width: 340px;
+  margin: auto;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+}
+
+/* Card Heading */
+.card h1 {
+  color: #aa8cdd;
+  margin-bottom: 20px;
+}
+
+/* Inputs */
+.card input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: 0.3s;
+}
+
+.card input:focus {
+  border-color: #c4b5fd;
+  box-shadow: 0 0 8px rgba(196, 181, 253, 0.5);
+}
+
+/* Button */
+.card button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card button:hover {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+}
+
+/* Welcome */
+.welcome {
+  text-align: center;
+  color: #7c3aed;
+}
+.token-box {
+  margin-top: 15px;
+  padding: 14px;
+  background: linear-gradient(135deg, #2c2c54, #40407a);
+  color: #f1f2f6;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: monospace;
+  word-break: break-all;
+  border-left: 4px solid #00cec9;
+}
