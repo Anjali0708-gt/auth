@@ -1,73 +1,116 @@
-# React + TypeScript + Vite
+# 🔐 MERN Authentication System (Login + SignUp)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A complete authentication system built using React, Zustand, and API integration.
+It allows users to register, log in, store tokens, and manage authentication state.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+* ✅ User Registration (SignUp)
+* ✅ User Login (SignIn)
+* ✅ Token stored using Zustand
+* ✅ Persistent login (localStorage)
+* ✅ Logout functionality
+* ✅ Toast notifications
+* ✅ Clean UI with user details & token display
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* Frontend: React.js
+* State Management: Zustand
+* API Handling: Axios
+* Notifications: React Hot Toast
+* Styling: CSS
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📂 Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+│── api.js
+│── App.css
+│── LogIn.jsx
+│── SignIn.jsx
+│── store/
+│    └── authstore.js
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Installation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository
+
 ```
+git clone https://github.com/Anjali0708-gt/auth
+```
+
+2. Navigate to project folder
+
+```
+cd auth
+```
+
+3. Install dependencies
+
+```
+npm install
+```
+
+4. Start the app
+
+```
+npm run dev
+```
+
+---
+
+## 🔑 Usage
+
+### 👤 Register (SignUp)
+
+* Enter name, email, and password
+* Create a new account
+
+### 🔐 Login (SignIn)
+
+* Enter email & password
+* Token will be generated and stored
+
+### 🚪 Logout
+
+* Clears token and user data
+* Returns to login screen
+
+---
+
+
+## 🧠 Learnings
+
+* Zustand for global state management
+* Authentication flow (SignUp + Login)
+* API integration with React
+* Token storage and handling
+* Logout state management
+
+---
+
+## 📌 Future Improvements
+
+* 🔐 Protected Routes
+* 👁️ Show/Hide Password
+* 🌐 Deployment (render)
+* 🛡️ Better error handling
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork and improve this project!
+
+---
+
