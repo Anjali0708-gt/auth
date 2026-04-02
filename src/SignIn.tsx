@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
 import api from './api';
+import toast from 'react-hot-toast';
 import './App.css'
 
 function SignIn()
@@ -9,14 +9,30 @@ function SignIn()
    const[name,setname]=useState("");
    const[email,setemail]=useState("");
    const[password,setpassword]= useState("");
-   
+   const[loading,setloading]= useState(false);
   //  const API_URL=`https://resetpasswordproject.onrender.com/signup`;
 
   async function handledata(e)
   {
      e.preventDefault()
+     setloading(true);
      try{
-    
+         
+      if(name.trim()=="")
+      {
+        toast.error("Please enter your name");
+        return;
+      }
+      if(email.trim()=="")
+           {
+            toast.error("Please enter your email");
+            return;
+           }
+      if(password.trim()=="")
+           {
+            toast.error("Please enter your password");
+            return;
+           }
       // console.log("Sending data:", { name, email, password });
      
       const res= await api.post("/api/auth/signup",
@@ -27,7 +43,7 @@ function SignIn()
         }
         
       )
-
+      toast.success("user register");
       setdata(res.data.user);
       setemail("")
       setname("")
@@ -37,9 +53,12 @@ function SignIn()
     catch(e)
     {
         console.log("erroor while signin",e.response?.data||e.message);
+        toast.error("can't signin")
         // console.log("error while signin", e.response?.data || e.message);
     }
-      
+    finally{
+      setloading(false);
+    }
   }
 
   return(
@@ -74,7 +93,7 @@ function SignIn()
             onChange={(e)=>setpassword(e.target.value)}
           />
 
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={loading} >{loading?"loading...":"Sign Up"}</button>
         </form>
       </div>
     )}

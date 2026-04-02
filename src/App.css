@@ -11,6 +11,10 @@ body {
   padding-top: 40px;
 }
 
+.container1 {
+  text-align: center;
+  padding-top: 40px;
+}
 /* Top Heading */
 .container h1 {
   color: #7c3aed;
@@ -106,3 +110,37 @@ nav {
   word-break: break-all;
   border-left: 4px solid #00cec9;
 }
+/* Forget Page Specific */
+.forget-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+/* Improve spacing inside card */
+.card form {
+  margin-top: 10px;
+}
+
+/* Disabled button (important for loading) */
+.card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Small helper text */
+.helper-text {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.container1 .heading {
+  color: #19191a;
+  font-size: 38px;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import api from "./api";   //
 import './App.css'
 // import axios from 'axios';
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import toast from 'react-hot-toast';
 import { useAuthStore } from "./store/authstore";
 
@@ -10,7 +10,8 @@ function LogIn() {
   const [data, setdata] = useState(null);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const navigate= useNavigate();
+  const[loading,setloading]= useState(false);
+  
 
   const setToken= useAuthStore((t)=> t.settoken)
   const token= useAuthStore((t)=>t.token);
@@ -18,8 +19,20 @@ function LogIn() {
 
   async function handledata(e) {
     e.preventDefault();
+    setloading(true);
 
     try {
+      
+      if(email.trim()=="")
+           {
+            toast.error("Please enter your email");
+            return;
+           }
+      if(password.trim()=="")
+           {
+            toast.error("Please enter your password");
+            return;
+           }
       const res = await api.post("/api/auth/login", {   
         email: email,
         password: password
@@ -38,6 +51,9 @@ function LogIn() {
           setemail("");
       setpassword("");
       toast.error("login failed");
+    }
+    finally{
+      setloading(false);
     }
   }
 
@@ -68,8 +84,12 @@ function LogIn() {
             onChange={(e)=>setpassword(e.target.value)}
           />
 
-          <button type="submit">login</button>
-          <p></p>
+          <button type="submit" disabled={loading} >{loading?"loading...":"login"}</button>
+
+            
+               <Link to = "/forget">forget password</Link>
+    
+    
         </form>
       </div>
     )}
