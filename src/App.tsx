@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+
 import { BrowserRouter, Link,Route,Routes,Navigate } from 'react-router';
 import SignIn from './SignIn';
 import LogIn from './LogIn';
@@ -22,7 +22,7 @@ function App()
       <Link to ="/logIn" className="nav-btn">logIn</Link>
     </nav>
     <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/logIn" />} />
       <Route path="/signIn" element={<SignIn/>}></Route>
       <Route path="/logIn" element={<LogIn/>}></Route>
         <Route path="/forget" element={<Forget />} />

@@ -1,120 +1,123 @@
 import { useState } from 'react';
-import api from "./api";   //
-import './App.css'
-// import axios from 'axios';
+import api from "./api";
+import './App.css';
 import { Link } from "react-router";
 import toast from 'react-hot-toast';
 import { useAuthStore } from "./store/authstore";
+import { AxiosError } from "axios";
+
+type User = {
+  name: string;
+  email: string;
+};
 
 function LogIn() {
-  const [data, setdata] = useState(null);
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const[loading,setloading]= useState(false);
-  
+  // ✅ FIX: proper type instead of null
+  const [data, setdata] = useState<User | null>(null);
+  const [email, setemail] = useState<string>("");
+  const [password, setpassword] = useState<string>("");
+  const [loading, setloading] = useState<boolean>(false);
 
-  const setToken= useAuthStore((t)=> t.settoken)
-  const token= useAuthStore((t)=>t.token);
-  const logout = useAuthStore((t)=>t.logout)
+  const setToken = useAuthStore((t) => t.settoken);
+  const token = useAuthStore((t) => t.token);
+  const logout = useAuthStore((t) => t.logout);
 
-  async function handledata(e) {
+  // ✅ FIX: event type
+  async function handledata(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (email.trim() === "") {
+      toast.error("Please enter your email");
+      return;
+    }
+
+    if (password.trim() === "") {
+      toast.error("Please enter your password");
+      return;
+    }
+
     setloading(true);
 
     try {
-      
-      if(email.trim()=="")
-           {
-            toast.error("Please enter your email");
-            return;
-           }
-      if(password.trim()=="")
-           {
-            toast.error("Please enter your password");
-            return;
-           }
-      const res = await api.post("/api/auth/login", {   
-        email: email,
-        password: password
+      const res = await api.post("/api/auth/login", {
+        email,
+        password
       });
+
       setToken(res.data.token);
-      console.log("Login clicked");
-      toast.success("user login sucessfully")
-      
+      toast.success("User login successfully");
 
       setdata(res.data.user);
       setemail("");
       setpassword("");
 
-    } catch (e) {
+    } catch (err) {
+      // ✅ FIX: unknown error type
+      const e = err as AxiosError<{ msg: string }>;
       console.log("error while login", e.response?.data);
-          setemail("");
+
+      toast.error(e.response?.data?.msg || "Login failed");
+
+      setemail("");
       setpassword("");
-      toast.error("login failed");
-    }
-    finally{
+
+    } finally {
       setloading(false);
     }
   }
 
-  return(
-    <>
-  
-  <div className="container">
+  return (
+    <div className="container">
 
-    {!data && (
-      <div className="card">
-        <h1>User Registration</h1>
+      {!data && (
+        <div className="card">
+          <h1>User Login</h1>
 
-        <form onSubmit={handledata}>
-          
+          <form onSubmit={handledata}>
 
-          <input
-            type="email"
-            value={email}
-            placeholder="enter email"
-            onChange={(e)=>setemail(e.target.value)}
-          />
+            <input
+              type="email"
+              value={email}
+              placeholder="enter email"
+              onChange={(e) => setemail(e.target.value)}
+            />
 
-          <input
-            type="password"
-            value={password}
-            autoComplete="current-password"
-            placeholder="enter password"
-            onChange={(e)=>setpassword(e.target.value)}
-          />
+            <input
+              type="password"
+              value={password}
+              autoComplete="current-password"
+              placeholder="enter password"
+              onChange={(e) => setpassword(e.target.value)}
+            />
 
-          <button type="submit" disabled={loading} >{loading?"loading...":"login"}</button>
+            <button type="submit" disabled={loading}>
+              {loading ? "loading..." : "login"}
+            </button>
 
-            
-               <Link to = "/forget">forget password</Link>
-    
-    
-        </form>
-      </div>
-    )}
+            <Link to="/forget">forget password</Link>
 
-    {data && (
-      <div className="card welcome">
-        <h1>🎉 Welcome!</h1>
-        <h2>{data.name}</h2>
-        <p>{data.email}</p>
-       
-       {token && <p className="token-box">Token: {token}</p>}
-       <br />
-       <button onClick={()=>{logout(); setdata("")}}>logout</button>
-      </div>
-      
-     
-    )}
-       
-    
+          </form>
+        </div>
+      )}
 
-  </div>
- 
-    
+      {data && (
+        <div className="card welcome">
+          <h1>🎉 Welcome!</h1>
+          <h2>{data.name}</h2>
+          <p>{data.email}</p>
 
-    </>
+          {token && <p className="token-box">Token: {token}</p>}
+
+          <br />
+
+          {/* ✅ FIX: setdata(null) instead of "" */}
+          <button onClick={() => { logout(); setdata(null); }}>
+            logout
+          </button>
+        </div>
+      )}
+
+    </div>
   );
 }
 

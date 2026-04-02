@@ -1,26 +1,24 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 
-type AuthStore={
-    token:string | null,
-    settoken:(t:string)=>void,
-    logout:() => void
-}
+type AuthStore = {
+  token: string | null;
+  settoken: (t: string) => void;
+  logout: () => void;
+};
 
-export const useAuthStore= create<AuthStore>((set )=>(
-{
-     token:localStorage.getItem("token"),
+export const useAuthStore = create<AuthStore>((set) => ({
+  // ✅ FIX: safe access
+  token: typeof window !== "undefined"
+    ? localStorage.getItem("token")
+    : null,
 
-     settoken:(t)=>
-     {
-        localStorage.setItem("token",t);
-        set({token:t})
-     },
+  settoken: (t: string) => {
+    localStorage.setItem("token", t);
+    set({ token: t });
+  },
 
-     logout:()=>
-     {
-        localStorage.removeItem("token");
-        set({token:null});
-     }
-
-
+  logout: () => {
+    localStorage.removeItem("token");
+    set({ token: null });
+  }
 }));
